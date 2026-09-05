@@ -3,40 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>篮球社团招新报名</title>
+    <title>篮球社团招新</title>
 </head>
 <body>
 
     <header>
-        <h1> 篮球社团招新</h1>
-        <p>欢迎加入我们，一起打球，这样你会变得更加强壮</p>
+        <h1>篮球社团招新</h1>
+        <p>欢迎加入我们，一起打球、一起成长！</p >
     </header>
 
     <nav>
-        <a href="#intro">报名说明</a>
-        <a href="#form">立即报名</a>
+        <a href=" ">报名说明</a >
+        <a href="#form">立即报名</a >
     </nav>
 
     <main>
         <section id="intro">
             <h2>报名说明</h2>
-            <p>填写以下信息即可完成报名</p>
+            <p>填写以下信息即可完成报名，我们会在一周内联系你。</p >
             <ul>
                 <li>报名截止：2026年9月30日</li>
                 <li>招新对象：全体在校学生</li>
-                <li>无需面试直接报名</li>
+                <li>无需面试，直接报名</li>
             </ul>
         </section>
 
         <section id="form">
-            <h2>报名表</h2>
+            <h2>📝 报名表单</h2>
             <form action="#" method="get">
+
+                <p>
+                    <label for="name"><span class="required">*</span> 姓名</label>
+                    <input type="text" id="name" name="name" placeholder="请输入你的姓名" required>
+                </p >
+
+                <p>
+                    <label for="student_id"><span class="required">*</span> 学号</label>
+                    <input type="text" id="student_id" name="student_id" placeholder="例如：202401001" required>
+                </p >
+                  <p>
+                    <label for="grade"><span class="required">*</span> 年级</label>
+                    <select id="grade" name="grade" required>
+                        <option value="">请选择年级</option>
+                        <option value="大一">大一</option>
+                        <option value="大二">大二</option>
+                        <option value="大三">大三</option>
+                        <option value="大四">大四</option>
+                        <option value="研究生">研究生</option>
+                    </select>
+                </p >
+
+                <p>
+                    <label for="phone"><span class="required">*</span> 手机号</label>
+                    <input type="tel" id="phone" name="phone" placeholder="例如：13800138000" required>
+                </p >
+
+                <p>
+                    <label for="qq">QQ 号</label>
+                    <input type="text" id="qq" name="qq" placeholder="选填">
+                </p >
+
+                <p>
+                    <label for="wechat">微信号</label>
+                    <input type="text" id="wechat" name="wechat" placeholder="选填">
+                </p >
+
+                <p><span class="required">*</span> 你的篮球水平</p >
+                <div class="inline-group">
+                    <label><input type="radio" name="level" value="新手" checked> 新手</label>
+                    <label><input type="radio" name="level" value="进阶"> 进阶</label>
+                    <label><input type="radio" name="level" value="熟练"> 熟练</label>
+                </div>
+
+                <p><span class="required">*</span> 可参加训练时间</p >
+                <div class="inline-group">
+                    <label><input type="checkbox" name="time" value="周一"> 周一</label>
+                    <label><input type="checkbox" name="time" value="周三"> 周三</label>
+                    <label><input type="checkbox" name="time" value="周五"> 周五</label>
+                    <label><input type="checkbox" name="time" value="周末"> 周末</label>
+                </div>
+
+                <p>
+                    <label for="reason">为什么想加入篮球社？</label>
+                    <textarea id="reason" name="reason" rows="3" maxlength="200" placeholder="简单说说你的想法..."></textarea>
+                    <span class="hint">最多200字</span>
+                </p >
+
+                <p>
+                    <label for="demand">特殊需求或想对我们说的话</label>
+                    <textarea id="demand" name="demand" rows="3" maxlength="150" placeholder="如有特殊情况可注明..."></textarea>
+                    <span class="hint">选填，最多150字</span>
+                </p >
+
+                <p>
+                    <button type="submit">✅ 提交报名</button>
+                </p >
+
             </form>
         </section>
     </main>
 
     <footer>
-        <p>希望你加入我们的篮球大家庭</p>
+        <p>期待你的加入我们的篮球大家庭 </p >
     </footer>
 
 </body>
