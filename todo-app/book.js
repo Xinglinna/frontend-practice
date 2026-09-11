@@ -75,3 +75,55 @@ form.addEventListener('submit', (e) => {
 });
 
 render();
+const filters = document.querySelector('.filters');
+let currentFilter = 'all'; // all / high / low
+const render = () => {
+    list.innerHTML = '';
+    const shown = books.filter(book => {
+        if (currentFilter === 'all') return true;
+        if (currentFilter === 'high') return book.rating >= 8;
+        if (currentFilter === 'low') return book.rating < 8;
+    });
+
+    if (shown.length === 0) {
+        const li = document.createElement('li');
+        li.textContent = '没有符合条件的图书';
+        list.appendChild(li);
+        return;
+    }
+
+    shown.forEach((book) => {
+        const li = document.createElement('li');
+        const infoSpan = document.createElement('span');
+        infoSpan.className = 'book-info';
+        infoSpan.innerHTML = `${book.name} (作者: ${book.author}) <span class="book-rating">${book.rating}分</span>`;
+        const editBtn = document.createElement('span');
+        editBtn.textContent = '修改';
+        editBtn.className = 'edit';
+        editBtn.addEventListener('click', () => {
+            const newRating = prompt(`修改《${book.name}》的评分 (当前: ${book.rating}):`, book.rating);
+            if (newRating !== null && newRating.trim() !== '') {
+                const parsedRating = parseFloat(newRating);
+                if (!isNaN(parsedRating) && parsedRating >= 0 && parsedRating <= 10) {
+                    book.rating = parsedRating;
+                    save();
+                    render();
+                } else {
+                    alert('请输入 0-10 之间的有效数字！');
+                }
+            }
+        });
+        const delBtn = document.createElement('span');
+        li.appendChild(infoSpan);
+        li.appendChild(editBtn); 
+        li.appendChild(delBtn);
+        list.appendChild(li);
+    });
+};
+filters.addEventListener('click', (e) => {
+    if (e.target.tagName !== 'BUTTON') return;
+    currentFilter = e.target.dataset.filter; 
+    render();
+});
+
+render();
