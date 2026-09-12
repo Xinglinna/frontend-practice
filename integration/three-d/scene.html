@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>校园三维导览</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #back-btn {
+            position: absolute; top: 20px; left: 20px;
+            z-index: 100; padding: 10px 20px;
+            background: #0d6efd; color: white;
+            text-decoration: none; border-radius: 5px;
+            font-family: sans-serif;
+        }
+        #back-btn:hover { background: #0b5ed7; }
+    </style>
+</head>
+<body>
+    <a href=" " id="back-btn">← 返回首页</a >
+    <script src="../libs/three.min.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xf0f0f0); // 浅灰色背景
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+        const material = new THREE.MeshBasicMaterial({ color: 0x0d6efd }); // 蓝色
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+        const light = new THREE.AmbientLight(0xffffff, 0.5); 
+        scene.add(light);
+        const animate = () => {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        };
+        animate();
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
