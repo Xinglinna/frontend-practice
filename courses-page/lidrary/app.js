@@ -1,25 +1,27 @@
 const state = { data: null };
-const loadData = async () => {
+const loadData = () => {
   $('#status').text('加载中...').show();
-  try {
-    const response = await fetch('data/books.json');
-    if (!response.ok) {
-      throw new Error('HTTP ' + response.status);
-    }
-    const data = await response.json();
-    if (!data.series || data.series.length === 0) {
-      $('#status').text('暂无数据').show();
-      return;
-    }
-    state.data = data;
-    $('#sub-title').text(data.title + ' · 数据来源：课程统一数据集');
-    $('#status').hide();
-    renderCards(data);
-    renderBarChart(data);
-    renderLineChart(data);
-  } catch (error) {
-    $('#status').text('加载失败：' + error.message).show();
+  const data = {
+    "title": "图书馆月度借阅统计",
+    "months": ["1月", "2月", "3月", "4月", "5月", "6月"],
+    "series": [
+      { "category": "文学类", "counts": [120, 150, 180, 200, 170, 190] },
+      { "category": "科技类", "counts": [80, 90, 110, 130, 140, 160] },
+      { "category": "历史类", "counts": [60, 70, 65, 80, 90, 100] }
+    ]
+  };
+
+  if (!data.series || data.series.length === 0) {
+    $('#status').text('暂无数据').show();
+    return;
   }
+
+  state.data = data;
+  $('#sub-title').text(data.title + ' · 数据来源：课程统一数据集');
+  $('#status').hide();
+  renderCards(data);
+  renderBarChart(data);
+  renderLineChart(data);
 };
 const renderCards = (data) => {
   const months = data.months;
@@ -77,7 +79,7 @@ const renderLineChart = (data) => {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: false, 
       plugins: {
         title: { display: true, text: '借阅趋势（单位：册）' }
       }
