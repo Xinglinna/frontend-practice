@@ -1,5 +1,4 @@
 const state = { data: null };
-
 const loadData = async () => {
   $('#status').text('加载中...').show();
   try {
@@ -8,7 +7,7 @@ const loadData = async () => {
       throw new Error('HTTP ' + response.status);
     }
     const data = await response.json();
-    if (data.series.length === 0) {
+    if (!data.series || data.series.length === 0) {
       $('#status').text('暂无数据').show();
       return;
     }
@@ -22,7 +21,6 @@ const loadData = async () => {
     $('#status').text('加载失败：' + error.message).show();
   }
 };
-
 const renderCards = (data) => {
   const months = data.months;
   data.series.forEach(s => {
@@ -32,16 +30,14 @@ const renderCards = (data) => {
         <div class="card">
           <div class="card-body">
             <h3 class="card-title h6">${s.category}</h3>
-            <p class="card-text fs-4">${total}</p>
-            <p class="card-text small text-muted">共${months.length}个月累计借阅</p>
+            <p class="card-text fs-4">${total}</p >
+            <p class="card-text small text-muted">共${months.length}个月累计借阅</p >
           </div>
         </div>
       </div>
     `);
   });
 };
-
-loadData();
 let barChart = null;
 
 const renderBarChart = (data) => {
@@ -65,7 +61,7 @@ let lineChart = null;
 
 const renderLineChart = (data) => {
   if (lineChart !== null) {
-    lineChart.destroy();           
+    lineChart.destroy();
   }
   const ctx = document.querySelector('#line-chart');
   lineChart = new Chart(ctx, {
@@ -75,7 +71,8 @@ const renderLineChart = (data) => {
       datasets: data.series.map(s => ({
         label: s.category,
         data: s.counts,
-        borderWidth: 1
+        borderWidth: 2,
+        tension: 0.3
       }))
     },
     options: {
@@ -87,7 +84,7 @@ const renderLineChart = (data) => {
     }
   });
 };
-
 window.addEventListener('resize', () => {
   if (barChart) barChart.resize();
 });
+loadData();
