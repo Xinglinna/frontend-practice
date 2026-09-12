@@ -30,12 +30,20 @@
             <p class="lead">集成 HTML/CSS/JS、数据可视化和三维场景的综合实践</p >
         </div>
     </section>
-    <section id="study-room" class="py-5">
-        <div class="container">
-            <h2>自习室查询</h2>
-            <p>这里放筛选按钮和列表</p >
+    <section id="study-room" class="py-5 bg-light">
+    <div class="container">
+        <h2>自习室查询</h2>
+        <div class="filters mb-3">
+            <button class="btn btn-outline-primary" data-filter="all">全部</button>
+            <button class="btn btn-outline-primary" data-filter="open">开放中</button>
+            <button class="btn btn-outline-primary" data-filter="floor_3">3楼</button>
+            <button class="btn btn-outline-primary" data-filter="floor_4">4楼</button>
+            <button class="btn btn-outline-primary" data-filter="floor_5">5楼</button>
+            <button class="btn btn-outline-primary" data-filter="floor_6">6楼</button>
         </div>
-    </section>
+        <div id="room-list" class="row g-3"></div>
+    </div>
+</section>
     <section id="stats" class="py-5 bg-light">
         <div class="container">
             <h2>使用统计</h2>
