@@ -1,17 +1,17 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/controls/OrbitControls.js';
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x050510); 
+scene.background = new THREE.Color(0x050510);
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 10, 20); 
+camera.position.set(0, 10, 20);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true; 
+controls.enableDamping = true;
 controls.dampingFactor = 0.05;
-scene.add(new THREE.AmbientLight(0x404040, 1.5)); 
-const sunLight = new THREE.PointLight(0xffffff, 2, 100); 
+scene.add(new THREE.AmbientLight(0x404040, 1.5));
+const sunLight = new THREE.PointLight(0xffffff, 2, 100);
 sunLight.position.set(0, 0, 0);
 scene.add(sunLight);
 const sun = new THREE.Mesh(
@@ -35,13 +35,13 @@ const moon = new THREE.Mesh(
     new THREE.MeshStandardMaterial({ color: 0xaaaaaa })
 );
 moon.position.set(2, 0, 0);
-earth.add(moon); 
+earth.add(moon);
 const ring = new THREE.Mesh(
     new THREE.RingGeometry(2, 3, 64),
     new THREE.MeshStandardMaterial({ color: 0xcccccc, side: THREE.DoubleSide })
 );
 ring.position.set(-8, 0, 0);
-ring.rotation.x = Math.PI / 2; 
+ring.rotation.x = Math.PI / 2;
 scene.add(ring);
 const starsGeo = new THREE.BufferGeometry();
 const starsPositions = new Float32Array(2000 * 3);
