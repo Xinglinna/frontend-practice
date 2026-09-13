@@ -1,3 +1,6 @@
+import * as THREE from 'three';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/controls/OrbitControls.js';
+
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x16213e);
 scene.fog = new THREE.Fog(0x16213e, 8, 20);   
@@ -8,8 +11,7 @@ camera.position.set(4, 3, 6);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement); 
 scene.add(new THREE.AmbientLight(0xffffff, 0.4));
 const dir = new THREE.DirectionalLight(0xffffff, 0.8);
 dir.position.set(3, 6, 4);
@@ -20,13 +22,14 @@ const stage = new THREE.Mesh(
 );
 stage.position.y = -0.15;
 scene.add(stage);
-const items = new THREE.Group(); 
+const items = new THREE.Group();
 const geos = [
     new THREE.BoxGeometry(0.8, 0.8, 0.8),
     new THREE.SphereGeometry(0.5, 32, 32),
     new THREE.TorusGeometry(0.4, 0.16, 16, 48)
 ];
 const colors = [0x4fc3f7, 0xffb74d, 0xef5350];
+
 geos.forEach((geo, i) => {
     const angle = (i / geos.length) * Math.PI * 2;
     const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: colors[i] }));
@@ -37,6 +40,8 @@ scene.add(items);
 const animate = () => {
     requestAnimationFrame(animate);
     items.rotation.y += 0.005;
+    controls.update(); 
+    
     renderer.render(scene, camera);
 };
 animate();
