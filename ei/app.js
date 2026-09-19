@@ -55,3 +55,24 @@ filterButtons.forEach(btn => {
 });
 
 render();
+const initChart = () => {
+    const chartDom = document.getElementById('bar-chart');
+    if (!chartDom) return;
+
+    const myChart = echarts.init(chartDom);
+    myChart.setOption({
+        title: { text: '各城市当前温度（℃）' },
+        tooltip: { trigger: 'axis' },
+        xAxis: { type: 'category', data: cities.map(c => c.name) },
+        yAxis: { type: 'value', name: '温度（℃）' },
+        series: [{
+            data: cities.map(c => c.temp),
+            type: 'bar',
+            itemStyle: { color: '#0d6efd' }
+        }]
+    });
+
+    window.addEventListener('resize', () => myChart.resize());
+};
+
+initChart();
