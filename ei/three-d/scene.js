@@ -68,9 +68,12 @@ function createTree(x, z) {
 
 createTree(-7, 4);
 createTree(7, 4);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
 
 const animate = () => {
     requestAnimationFrame(animate);
+    controls.update();  
     renderer.render(scene, camera);
 };
 animate();
