@@ -1,9 +1,14 @@
+// 创建 A-Frame 场景
 const scene = document.createElement('a-scene');
 scene.setAttribute('embedded', '');
 scene.setAttribute('style', 'height: 100%; width: 100%;');
+
+// 天空
 const sky = document.createElement('a-sky');
 sky.setAttribute('color', '#87CEEB');
 scene.appendChild(sky);
+
+// 地面
 const ground = document.createElement('a-plane');
 ground.setAttribute('position', '0 0 0');
 ground.setAttribute('rotation', '-90 0 0');
@@ -11,25 +16,31 @@ ground.setAttribute('width', '20');
 ground.setAttribute('height', '20');
 ground.setAttribute('color', '#7BC96F');
 scene.appendChild(ground);
-function createBuilding(name, position, width, height, depth, color) {
+
+// 创建建筑
+function createBuilding(name, position, w, h, d, color) {
   const box = document.createElement('a-box');
   box.setAttribute('position', position);
-  box.setAttribute('width', width);
-  box.setAttribute('height', height);
-  box.setAttribute('depth', depth);
+  box.setAttribute('width', w);
+  box.setAttribute('height', h);
+  box.setAttribute('depth', d);
   box.setAttribute('color', color);
   scene.appendChild(box);
+
   const [x, y, z] = position.split(' ').map(Number);
   const label = document.createElement('a-text');
   label.setAttribute('value', name);
-  label.setAttribute('position', `${x} ${y + height / 2 + 0.5} ${z}`);
+  label.setAttribute('position', `${x} ${y + h / 2 + 0.5} ${z}`);
   label.setAttribute('align', 'center');
   label.setAttribute('color', 'black');
   scene.appendChild(label);
 }
+
 createBuilding('教学楼', '-3 1.5 -2', 3, 3, 2, '#4A90E2');
 createBuilding('图书馆', '3 1 -2', 3, 2, 2, '#E67E22');
 createBuilding('宿舍楼', '0 2 3', 4, 4, 2, '#9B59B6');
+
+// 创建树
 function createTree(x, z) {
   const trunk = document.createElement('a-cylinder');
   trunk.setAttribute('position', `${x} 0.5 ${z}`);
@@ -37,18 +48,24 @@ function createTree(x, z) {
   trunk.setAttribute('height', '1');
   trunk.setAttribute('color', '#8B4513');
   scene.appendChild(trunk);
+
   const leaves = document.createElement('a-sphere');
   leaves.setAttribute('position', `${x} 1.5 ${z}`);
   leaves.setAttribute('radius', '0.7');
   leaves.setAttribute('color', '#2ECC71');
   scene.appendChild(leaves);
 }
+
 createTree(-5, 3);
 createTree(5, 3);
+
+// 相机
 const camera = document.createElement('a-entity');
 camera.setAttribute('camera', '');
 camera.setAttribute('look-controls', '');
 camera.setAttribute('wasd-controls', '');
 camera.setAttribute('position', '0 1.6 8');
 scene.appendChild(camera);
+
+// 挂载到页面
 document.getElementById('scene-container').appendChild(scene);
